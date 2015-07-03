@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var PostSchema = new mongoose.Schema({
+var CommentSchema = new mongoose.Schema({
 	body: String,
 	author: String,
 	upvotes: {type: Number, default: 0},
@@ -8,4 +8,9 @@ var PostSchema = new mongoose.Schema({
 
 });
 
-mongoose.model('Comment', PostSchema);
+CommentSchema.methods.upvote = function(cb) {
+	this.upvotes++;
+	this.save(cb);
+}
+
+mongoose.model('Comment', CommentSchema);
